@@ -75,5 +75,16 @@ public class LockerTest {
             //then
             assertThat(blockNumber).isEqualTo(ticket.blockNumber);
         }
+
+        @Test
+        public void should_fail_given_invalid_ticket() {
+            //given
+            Locker locker = new Locker();
+
+            //when
+            int blockNumber = locker.takeOut("invalid ticket id");
+            //then
+            assertThat(blockNumber).isEqualTo(-1);
+        }
     }
 }
