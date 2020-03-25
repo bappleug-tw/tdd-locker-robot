@@ -4,7 +4,11 @@ import com.google.common.annotations.VisibleForTesting;
 
 public class Locker {
 
-    private String[] ticketIds = new String[19];
+    private String[] ticketIds;
+
+    public Locker(int capacity) {
+        ticketIds = new String[capacity];
+    }
 
     public Ticket storeIn() {
         int index = findFirstAvailableIndex(ticketIds);
