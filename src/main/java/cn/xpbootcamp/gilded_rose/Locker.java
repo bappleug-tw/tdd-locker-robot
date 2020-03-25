@@ -11,10 +11,10 @@ public class Locker {
         if (index == -1) {
             throw new IllegalStateException("locker is full");
         }
-        ticketIds[index] = "ticketId";
         final Ticket ticket = new Ticket();
-        ticket.id = "ticketId";
+        ticket.id = "ticketId" + index;
         ticket.blockNumber = index;
+        ticketIds[index] = ticket.id;
         return ticket;
     }
 
@@ -31,8 +31,8 @@ public class Locker {
     }
 
     public int takeOut(String ticketId) {
-        for(int i = 0; i < 19; i++){
-            if(ticketId.equals(ticketIds[i])){
+        for (int i = 0; i < 19; i++) {
+            if (ticketId.equals(ticketIds[i])) {
                 ticketIds[i] = null;
                 return i;
             }

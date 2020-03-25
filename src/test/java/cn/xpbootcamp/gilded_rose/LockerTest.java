@@ -66,7 +66,7 @@ public class LockerTest {
     class when_take_out {
 
         @Test
-        public void should_success_given_valid_ticket() {
+        public void should_success_given_store_one_and_take_out_with_valid_ticket() {
             //given
             Locker locker = new Locker();
             Ticket ticket = locker.storeIn();
@@ -74,6 +74,20 @@ public class LockerTest {
             int blockNumber = locker.takeOut(ticket.id);
             //then
             assertThat(blockNumber).isEqualTo(ticket.blockNumber);
+        }
+
+        @Test
+        public void should_success_given_store_two_and_take_out_in_different_order_with_valid_ticket() {
+            //given
+            Locker locker = new Locker();
+            Ticket ticket1 = locker.storeIn();
+            Ticket ticket2 = locker.storeIn();
+            //when
+            int blockNumber2 = locker.takeOut(ticket2.id);
+            int blockNumber1 = locker.takeOut(ticket1.id);
+            //then
+            assertThat(blockNumber1).isEqualTo(ticket1.blockNumber);
+            assertThat(blockNumber2).isEqualTo(ticket2.blockNumber);
         }
 
         @Test
