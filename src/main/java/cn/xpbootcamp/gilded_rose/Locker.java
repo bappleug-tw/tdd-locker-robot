@@ -16,16 +16,14 @@ public class Locker {
         if (index == -1) {
             throw new IllegalStateException("locker is full");
         }
-        final Ticket ticket = new Ticket();
-        ticket.id = "ticketId" + index;
-        ticket.blockNumber = index;
-        ticketIds[index] = ticket.id;
+        final Ticket ticket = new Ticket(index);
+        ticketIds[index] = ticket.getId();
         return ticket;
     }
 
     @VisibleForTesting
     void storeInIndex(int index) {
-        ticketIds[index] = "ticketId";
+        ticketIds[index] = HashUtils.generate();
     }
 
     private int findFirstAvailableIndex(String[] ticketIds) {

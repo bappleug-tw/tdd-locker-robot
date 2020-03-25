@@ -40,8 +40,8 @@ public class LockerTest {
             //when
             Ticket ticket = locker.storeIn();
             //then
-            assertThat(ticket.id).isNotNull();
-            assertThat(ticket.blockNumber).isEqualTo(0);
+            assertThat(ticket.getId()).isNotNull();
+            assertThat(ticket.getBlockNumber()).isEqualTo(0);
         }
 
         @Test
@@ -54,8 +54,8 @@ public class LockerTest {
             //when
             Ticket ticket = locker.storeIn();
             //then
-            assertThat(ticket.id).isNotNull();
-            assertThat(ticket.blockNumber).isEqualTo(5);
+            assertThat(ticket.getId()).isNotNull();
+            assertThat(ticket.getBlockNumber()).isEqualTo(5);
         }
 
         @Test
@@ -68,8 +68,8 @@ public class LockerTest {
             //when
             Ticket ticket = locker.storeIn();
             //then
-            assertThat(ticket.id).isNotNull();
-            assertThat(ticket.blockNumber).isEqualTo(0);
+            assertThat(ticket.getId()).isNotNull();
+            assertThat(ticket.getBlockNumber()).isEqualTo(0);
         }
 
         @Test
@@ -93,9 +93,9 @@ public class LockerTest {
             Locker locker = new Locker(19);
             Ticket ticket = locker.storeIn();
             //when
-            int blockNumber = locker.takeOut(ticket.id);
+            int blockNumber = locker.takeOut(ticket.getId());
             //then
-            assertThat(blockNumber).isEqualTo(ticket.blockNumber);
+            assertThat(blockNumber).isEqualTo(ticket.getBlockNumber());
         }
 
         @Test
@@ -105,11 +105,11 @@ public class LockerTest {
             Ticket ticket1 = locker.storeIn();
             Ticket ticket2 = locker.storeIn();
             //when
-            int blockNumber2 = locker.takeOut(ticket2.id);
-            int blockNumber1 = locker.takeOut(ticket1.id);
+            int blockNumber2 = locker.takeOut(ticket2.getId());
+            int blockNumber1 = locker.takeOut(ticket1.getId());
             //then
-            assertThat(blockNumber1).isEqualTo(ticket1.blockNumber);
-            assertThat(blockNumber2).isEqualTo(ticket2.blockNumber);
+            assertThat(blockNumber1).isEqualTo(ticket1.getBlockNumber());
+            assertThat(blockNumber2).isEqualTo(ticket2.getBlockNumber());
         }
 
         @Test
@@ -128,9 +128,9 @@ public class LockerTest {
             //given
             Locker locker = new Locker(19);
             Ticket ticket = locker.storeIn();
-            locker.takeOut(ticket.id);
+            locker.takeOut(ticket.getId());
             //when
-            int blockNumber = locker.takeOut(ticket.id);
+            int blockNumber = locker.takeOut(ticket.getId());
             //then
             assertThat(blockNumber).isEqualTo(-1);
         }
