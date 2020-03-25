@@ -33,6 +33,7 @@ public class Locker {
     public int takeOut(String ticketId) {
         for(int i = 0; i < 19; i++){
             if(ticketId.equals(ticketIds[i])){
+                ticketIds[i] = null;
                 return i;
             }
         }
