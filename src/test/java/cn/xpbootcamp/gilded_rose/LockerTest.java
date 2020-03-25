@@ -12,7 +12,7 @@ public class LockerTest {
     class when_store_in {
 
         @Test
-        public void given_locker_is_empty_then_success_and_return_ticket() {
+        public void should_success_and_return_ticket_given_locker_is_empty_then_() {
             //given
             Locker locker = new Locker();
             //when
@@ -23,7 +23,7 @@ public class LockerTest {
         }
 
         @Test
-        public void given_the_first_five_blocks_are_occupied_then_success_and_return_ticket_with_locker_no_6() {
+        public void should_success_and_return_ticket_with_locker_no_6_given_the_first_five_blocks_are_occupied() {
             //given
             Locker locker = new Locker();
             for (int i = 0; i < 5; i++) {
@@ -37,7 +37,7 @@ public class LockerTest {
         }
 
         @Test
-        public void given_the_last_five_blocks_are_occupied_then_success_and_return_ticket_with_locker_no_1() {
+        public void should_success_and_return_ticket_with_locker_no_1_given_the_last_five_blocks_are_occupied() {
             //given
             Locker locker = new Locker();
             for (int i = 14; i <= 18; i++) {
@@ -51,7 +51,7 @@ public class LockerTest {
         }
 
         @Test
-        public void given_the_locker_is_full_then_throw_exception() {
+        public void should_throw_exception_given_the_locker_is_full() {
             Locker locker = new Locker();
             for(int i = 0; i < 19; i++) {
                 locker.storeIn();
