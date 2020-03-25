@@ -19,7 +19,7 @@ public class LockerTest {
             Ticket ticket = locker.storeIn();
             //then
             assertThat(ticket.id).isNotNull();
-            assertThat(ticket.lockerNumber).isEqualTo(0);
+            assertThat(ticket.blockNumber).isEqualTo(0);
         }
 
         @Test
@@ -33,7 +33,7 @@ public class LockerTest {
             Ticket ticket = locker.storeIn();
             //then
             assertThat(ticket.id).isNotNull();
-            assertThat(ticket.lockerNumber).isEqualTo(5);
+            assertThat(ticket.blockNumber).isEqualTo(5);
         }
 
         @Test
@@ -47,7 +47,7 @@ public class LockerTest {
             Ticket ticket = locker.storeIn();
             //then
             assertThat(ticket.id).isNotNull();
-            assertThat(ticket.lockerNumber).isEqualTo(0);
+            assertThat(ticket.blockNumber).isEqualTo(0);
         }
 
         @Test
@@ -59,6 +59,21 @@ public class LockerTest {
             assertThatThrownBy(locker::storeIn)
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessageContaining("locker is full");
+        }
+    }
+
+    @Nested
+    class when_take_out {
+
+        @Test
+        public void should_success_given_valid_ticket() {
+            //given
+            Locker locker = new Locker();
+            Ticket ticket = locker.storeIn();
+            //when
+            int blockNumber = locker.takeOut(ticket.id);
+            //then
+            assertThat(blockNumber).isEqualTo(ticket.blockNumber);
         }
     }
 }

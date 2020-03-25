@@ -5,6 +5,7 @@ import com.google.common.annotations.VisibleForTesting;
 public class Locker {
 
     private boolean[] blocks = new boolean[19];
+    private Ticket[] tickets = new Ticket[19];
 
     public Ticket storeIn() {
         int index = findFirstAvailableIndex(blocks);
@@ -14,7 +15,8 @@ public class Locker {
         blocks[index] = true;
         final Ticket ticket = new Ticket();
         ticket.id = "ticketId";
-        ticket.lockerNumber = index;
+        ticket.blockNumber = index;
+        tickets[index] = ticket;
         return ticket;
     }
 
@@ -26,6 +28,15 @@ public class Locker {
     private int findFirstAvailableIndex(boolean[] blocks) {
         for (int i = 0; i < blocks.length; i++) {
             if (!blocks[i]) return i;
+        }
+        return -1;
+    }
+
+    public int takeOut(String ticketId) {
+        for(int i = 0; i < 19; i++){
+            if(tickets[i].id == ticketId){
+                return tickets[i].blockNumber;
+            }
         }
         return -1;
     }
