@@ -7,6 +7,7 @@ public class Locker {
     private String[] ticketIds;
 
     public Locker(int capacity) {
+        if (capacity < 1) throw new IllegalArgumentException("capacity must be a positive value");
         ticketIds = new String[capacity];
     }
 

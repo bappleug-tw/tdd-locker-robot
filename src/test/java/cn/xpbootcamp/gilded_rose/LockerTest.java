@@ -21,6 +21,13 @@ public class LockerTest {
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessage("locker is full");
         }
+
+        @Test
+        public void should_throw_error_given_initial_capacity_equals_to_minus_1() {
+            assertThatThrownBy(() -> new Locker(-1))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("capacity must be a positive value");
+        }
     }
 
     @Nested
