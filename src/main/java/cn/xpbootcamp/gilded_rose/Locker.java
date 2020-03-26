@@ -40,6 +40,6 @@ public class Locker {
                 return i;
             }
         }
-        return -1;
+        throw new IllegalArgumentException("invalid ticket id");
     }
 }

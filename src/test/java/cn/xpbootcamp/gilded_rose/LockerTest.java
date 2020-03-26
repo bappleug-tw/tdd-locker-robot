@@ -114,25 +114,22 @@ public class LockerTest {
 
         @Test
         public void should_fail_given_invalid_ticket() {
-            //given
             Locker locker = new Locker(19);
 
-            //when
-            int blockNumber = locker.takeOut("invalid ticket id");
-            //then
-            assertThat(blockNumber).isEqualTo(-1);
+            assertThatThrownBy(() -> locker.takeOut("invalid ticket id"))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("invalid ticket id");
         }
 
         @Test
         public void should_fail_given_used_ticket() {
-            //given
             Locker locker = new Locker(19);
             Ticket ticket = locker.storeIn();
             locker.takeOut(ticket.getId());
-            //when
-            int blockNumber = locker.takeOut(ticket.getId());
-            //then
-            assertThat(blockNumber).isEqualTo(-1);
+
+            assertThatThrownBy(() -> locker.takeOut(ticket.getId()))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("invalid ticket id");
         }
     }
 }
