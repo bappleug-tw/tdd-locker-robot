@@ -34,7 +34,7 @@ public class LockerTest {
     class when_store_in {
 
         @Test
-        public void should_success_and_return_ticket_given_locker_is_empty_then_() {
+        public void should_success_and_return_ticket_given_locker_is_empty() {
             //given
             Locker locker = new Locker(19);
             //when
