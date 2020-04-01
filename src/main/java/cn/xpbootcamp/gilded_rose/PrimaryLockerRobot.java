@@ -13,4 +13,8 @@ public class PrimaryLockerRobot {
         }
         throw new LockerFullException();
     }
+
+    public Bag takeOut(List<Locker> lockers, Ticket ticket) {
+        return lockers.get(0).takeOut(ticket);
+    }
 }
