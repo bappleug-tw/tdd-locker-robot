@@ -9,127 +9,78 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 public class LockerTest {
 
     @Nested
-    class when_initialize_locker {
-
-        @Test
-        public void should_be_able_to_store_at_most_5_items_at_the_same_time_given_locker_capacity_is_5() {
-            Locker locker = new Locker(5);
-            for (int i = 0; i < 5; i++) {
-                locker.storeIn();
-            }
-            assertThatThrownBy(locker::storeIn)
-                    .isInstanceOf(IllegalStateException.class)
-                    .hasMessage("locker is full");
-        }
-
-        @Test
-        public void should_throw_error_given_initial_capacity_equals_to_minus_1() {
-            assertThatThrownBy(() -> new Locker(-1))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("capacity must be a positive value");
-        }
-    }
-
-    @Nested
-    class when_store_in {
+    class when_store_bags {
 
         @Test
         public void should_success_and_return_ticket_given_locker_is_empty() {
             //given
             Locker locker = new Locker(19);
             //when
-            Ticket ticket = locker.storeIn();
+            Bag bag = new Bag();
+            Ticket ticket = locker.store(bag);
             //then
-            assertThat(ticket.getId()).isNotNull();
-            assertThat(ticket.getBlockNumber()).isEqualTo(0);
-        }
-
-        @Test
-        public void should_success_and_return_ticket_with_locker_no_6_given_the_first_five_blocks_are_occupied() {
-            //given
-            Locker locker = new Locker(19);
-            for (int i = 0; i < 5; i++) {
-                locker.storeIn();
-            }
-            //when
-            Ticket ticket = locker.storeIn();
-            //then
-            assertThat(ticket.getId()).isNotNull();
-            assertThat(ticket.getBlockNumber()).isEqualTo(5);
-        }
-
-        @Test
-        public void should_success_and_return_ticket_with_locker_no_1_given_the_last_five_blocks_are_occupied() {
-            //given
-            Locker locker = new Locker(19);
-            for (int i = 14; i <= 18; i++) {
-                locker.storeInIndex(i);
-            }
-            //when
-            Ticket ticket = locker.storeIn();
-            //then
-            assertThat(ticket.getId()).isNotNull();
-            assertThat(ticket.getBlockNumber()).isEqualTo(0);
+            assertThat(ticket).isNotNull();
         }
 
         @Test
         public void should_throw_exception_given_the_locker_is_full() {
-            Locker locker = new Locker(19);
-            for (int i = 0; i < 19; i++) {
-                locker.storeIn();
-            }
-            assertThatThrownBy(locker::storeIn)
-                    .isInstanceOf(IllegalStateException.class)
-                    .hasMessageContaining("locker is full");
+            Locker locker = new Locker(1);
+            Bag bag1 = new Bag();
+            locker.store(bag1);
+            Bag bag2 = new Bag();
+            assertThatThrownBy(() -> locker.store(bag2))
+                    .isInstanceOf(LockerFullException.class);
         }
     }
 
     @Nested
-    class when_take_out {
+    class when_take_out_bags {
 
         @Test
         public void should_success_given_store_one_and_take_out_with_valid_ticket() {
             //given
             Locker locker = new Locker(19);
-            Ticket ticket = locker.storeIn();
+            Bag bagIn = new Bag();
+            Ticket ticket = locker.store(bagIn);
             //when
-            int blockNumber = locker.takeOut(ticket.getId());
+            Bag bagOut = locker.takeOut(ticket);
             //then
-            assertThat(blockNumber).isEqualTo(ticket.getBlockNumber());
+            assertThat(bagOut).isEqualTo(bagIn);
         }
 
         @Test
         public void should_success_given_store_two_and_take_out_in_different_order_with_valid_ticket() {
             //given
             Locker locker = new Locker(19);
-            Ticket ticket1 = locker.storeIn();
-            Ticket ticket2 = locker.storeIn();
+            Bag bagIn1 = new Bag();
+            Bag bagIn2 = new Bag();
+            Ticket ticket1 = locker.store(bagIn1);
+            Ticket ticket2 = locker.store(bagIn2);
             //when
-            int blockNumber2 = locker.takeOut(ticket2.getId());
-            int blockNumber1 = locker.takeOut(ticket1.getId());
+            Bag bagOut2 = locker.takeOut(ticket2);
+            Bag bagOut1 = locker.takeOut(ticket1);
             //then
-            assertThat(blockNumber1).isEqualTo(ticket1.getBlockNumber());
-            assertThat(blockNumber2).isEqualTo(ticket2.getBlockNumber());
+            assertThat(bagOut1).isEqualTo(bagIn1);
+            assertThat(bagOut2).isEqualTo(bagIn2);
         }
 
         @Test
         public void should_fail_given_invalid_ticket() {
             Locker locker = new Locker(19);
 
-            assertThatThrownBy(() -> locker.takeOut("invalid ticket id"))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("invalid ticket id");
+            assertThatThrownBy(() -> locker.takeOut(new Ticket()))
+                    .isInstanceOf(InvalidTicketException.class);
         }
 
         @Test
         public void should_fail_given_used_ticket() {
             Locker locker = new Locker(19);
-            Ticket ticket = locker.storeIn();
-            locker.takeOut(ticket.getId());
+            Bag bag = new Bag();
+            Ticket ticket = locker.store(bag);
+            locker.takeOut(ticket);
 
-            assertThatThrownBy(() -> locker.takeOut(ticket.getId()))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("invalid ticket id");
+            assertThatThrownBy(() -> locker.takeOut(ticket))
+                    .isInstanceOf(InvalidTicketException.class);
         }
     }
 }

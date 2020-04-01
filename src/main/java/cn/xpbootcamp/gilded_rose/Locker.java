@@ -2,44 +2,33 @@ package cn.xpbootcamp.gilded_rose;
 
 import com.google.common.annotations.VisibleForTesting;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Locker {
 
-    private String[] ticketIds;
+    private int capacity;
+    private Map<Ticket, Bag> storedBags = new HashMap<>();
 
     public Locker(int capacity) {
-        if (capacity < 1) throw new IllegalArgumentException("capacity must be a positive value");
-        ticketIds = new String[capacity];
+        this.capacity = capacity;
     }
 
-    public Ticket storeIn() {
-        int index = findFirstAvailableIndex(ticketIds);
-        if (index == -1) {
-            throw new IllegalStateException("locker is full");
+    public Ticket store(Bag bag) {
+        if (storedBags.size() >= capacity) {
+            throw new LockerFullException();
         }
-        final Ticket ticket = new Ticket(index);
-        ticketIds[index] = ticket.getId();
+        final Ticket ticket = new Ticket();
+        storedBags.put(ticket, bag);
         return ticket;
     }
 
-    @VisibleForTesting
-    void storeInIndex(int index) {
-        ticketIds[index] = HashUtils.generate();
-    }
-
-    private int findFirstAvailableIndex(String[] ticketIds) {
-        for (int i = 0; i < ticketIds.length; i++) {
-            if (ticketIds[i] == null) return i;
+    public Bag takeOut(Ticket ticket) {
+        final Bag bag = storedBags.get(ticket);
+        if (bag == null) {
+            throw new InvalidTicketException();
         }
-        return -1;
-    }
-
-    public int takeOut(String ticketId) {
-        for (int i = 0; i < 19; i++) {
-            if (ticketId.equals(ticketIds[i])) {
-                ticketIds[i] = null;
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("invalid ticket id");
+        storedBags.remove(ticket);
+        return bag;
     }
 }
