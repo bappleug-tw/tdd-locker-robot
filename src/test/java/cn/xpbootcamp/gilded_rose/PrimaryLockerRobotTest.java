@@ -86,8 +86,19 @@ public class PrimaryLockerRobotTest {
             Bag bagOut = primaryLockerRobot.takeOut(lockers, ticket);
             assertThat(bagOut).isEqualTo(bagIn);
         }
+
+        @Test
+        void should_throw_error_given_an_invalid_ticket() {
+            List<Locker> lockers = new ArrayList<>();
+            lockers.add(new Locker(1));
+            lockers.add(new Locker(2));
+
+            final Ticket fakeTicket = new Ticket();
+            assertThatThrownBy(() -> primaryLockerRobot.takeOut(lockers, fakeTicket))
+                    .isInstanceOf(InvalidTicketException.class);
+        }
     }
-    
+
     private Locker getFullLocker() {
         Locker locker = new Locker(1);
         locker.store(new Bag());

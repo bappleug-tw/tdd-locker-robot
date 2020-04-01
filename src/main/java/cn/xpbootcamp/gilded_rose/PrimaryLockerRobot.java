@@ -21,6 +21,6 @@ public class PrimaryLockerRobot {
             } catch (InvalidTicketException ignored) {
             }
         }
-        return null;
+        throw new InvalidTicketException();
     }
 }
