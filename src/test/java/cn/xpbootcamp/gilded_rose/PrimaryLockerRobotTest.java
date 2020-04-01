@@ -2,6 +2,10 @@ package cn.xpbootcamp.gilded_rose;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class PrimaryLockerRobotTest {
@@ -12,8 +16,13 @@ public class PrimaryLockerRobotTest {
 
             PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
             Bag bag = new Bag();
-            Ticket ticket = primaryLockerRobot.storeBag(bag);
+            List<Locker> lockers = new ArrayList<>();
+            lockers.add(new Locker(2));
+            lockers.add(new Locker(2));
+            Ticket ticket = primaryLockerRobot.storeBag(lockers, bag);
             assertThat(ticket).isNotNull();
+            assertThat(lockers.get(0).takeOut(ticket)).isEqualTo(bag);
+
         }
     }
 }
