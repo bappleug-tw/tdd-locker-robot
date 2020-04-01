@@ -1,5 +1,7 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exceptions.InvalidTicketException;
+import cn.xpbootcamp.gilded_rose.exceptions.LockerFullException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -27,7 +29,7 @@ public class PrimaryLockerRobotTest {
             lockers.add(new Locker(2));
             lockers.add(new Locker(2));
             Bag bag = new Bag();
-            Ticket ticket = primaryLockerRobot.storeBag(lockers, bag);
+            Ticket ticket = primaryLockerRobot.store(lockers, bag);
 
             assertThat(ticket).isNotNull();
             assertThat(lockers.get(0).takeOut(ticket)).isEqualTo(bag);
@@ -39,7 +41,7 @@ public class PrimaryLockerRobotTest {
             lockers.add(getFullLocker());
             lockers.add(new Locker(2));
             Bag bag = new Bag();
-            Ticket ticket = primaryLockerRobot.storeBag(lockers, bag);
+            Ticket ticket = primaryLockerRobot.store(lockers, bag);
 
             assertThat(ticket).isNotNull();
             assertThat(lockers.get(1).takeOut(ticket)).isEqualTo(bag);
@@ -51,7 +53,7 @@ public class PrimaryLockerRobotTest {
             lockers.add(getFullLocker());
             lockers.add(getFullLocker());
 
-            assertThatThrownBy(() -> primaryLockerRobot.storeBag(lockers, new Bag()))
+            assertThatThrownBy(() -> primaryLockerRobot.store(lockers, new Bag()))
                     .isInstanceOf(LockerFullException.class);
         }
     }

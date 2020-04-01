@@ -1,10 +1,13 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exceptions.InvalidTicketException;
+import cn.xpbootcamp.gilded_rose.exceptions.LockerFullException;
+
 import java.util.List;
 
 public class PrimaryLockerRobot {
 
-    public Ticket storeBag(List<Locker> lockers, Bag bag) {
+    public Ticket store(List<Locker> lockers, Bag bag) {
         for (Locker locker : lockers) {
             try {
                 return locker.store(bag);

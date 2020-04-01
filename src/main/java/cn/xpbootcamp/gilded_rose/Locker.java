@@ -1,6 +1,7 @@
 package cn.xpbootcamp.gilded_rose;
 
-import com.google.common.annotations.VisibleForTesting;
+import cn.xpbootcamp.gilded_rose.exceptions.InvalidTicketException;
+import cn.xpbootcamp.gilded_rose.exceptions.LockerFullException;
 
 import java.util.HashMap;
 import java.util.Map;

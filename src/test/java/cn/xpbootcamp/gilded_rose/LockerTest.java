@@ -1,5 +1,7 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exceptions.InvalidTicketException;
+import cn.xpbootcamp.gilded_rose.exceptions.LockerFullException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
