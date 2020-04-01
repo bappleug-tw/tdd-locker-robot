@@ -5,6 +5,13 @@ import java.util.List;
 public class PrimaryLockerRobot {
 
     public Ticket storeBag(List<Locker> lockers, Bag bag) {
-        return lockers.get(0).store(bag);
+        for (Locker locker : lockers) {
+            try{
+                return locker.store(bag);
+            }catch (LockerFullException e){
+                continue;
+            }
+        }
+        throw new LockerFullException();
     }
 }

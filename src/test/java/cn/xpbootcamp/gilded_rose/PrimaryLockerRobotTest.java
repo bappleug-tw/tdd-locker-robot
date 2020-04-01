@@ -24,5 +24,22 @@ public class PrimaryLockerRobotTest {
             assertThat(lockers.get(0).takeOut(ticket)).isEqualTo(bag);
 
         }
+
+        @Test
+        void should_store_bag_in_the_second_locker_success_and_return_ticket_given_only_the_first_locker_is_full(){
+
+            PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+
+            List<Locker> lockers = new ArrayList<>();
+            Locker locker = new Locker(1);
+            locker.store(new Bag());
+            lockers.add(locker);
+            lockers.add(new Locker(2));
+            Bag bag = new Bag();
+            Ticket ticket = primaryLockerRobot.storeBag(lockers, bag);
+            assertThat(ticket).isNotNull();
+            assertThat(lockers.get(1).takeOut(ticket)).isEqualTo(bag);
+
+        }
     }
 }
