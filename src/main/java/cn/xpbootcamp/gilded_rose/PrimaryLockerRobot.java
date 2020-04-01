@@ -15,6 +15,12 @@ public class PrimaryLockerRobot {
     }
 
     public Bag takeOut(List<Locker> lockers, Ticket ticket) {
-        return lockers.get(0).takeOut(ticket);
+        for (Locker locker : lockers) {
+            try {
+                return locker.takeOut(ticket);
+            } catch (InvalidTicketException ignored) {
+            }
+        }
+        return null;
     }
 }

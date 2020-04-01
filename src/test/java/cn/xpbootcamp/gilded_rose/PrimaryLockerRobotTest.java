@@ -72,6 +72,20 @@ public class PrimaryLockerRobotTest {
             Bag bagOut = primaryLockerRobot.takeOut(lockers, ticket);
             assertThat(bagOut).isEqualTo(bagIn);
         }
+
+        @Test
+        void should_take_out_the_bag_from_the_second_locker_given_a_valid_ticket_from_the_second_locker() {
+            Bag bagIn = new Bag();
+            final Locker locker = new Locker(2);
+            final Ticket ticket = locker.store(bagIn);
+
+            List<Locker> lockers = new ArrayList<>();
+            lockers.add(new Locker(1));
+            lockers.add(locker);
+
+            Bag bagOut = primaryLockerRobot.takeOut(lockers, ticket);
+            assertThat(bagOut).isEqualTo(bagIn);
+        }
     }
     
     private Locker getFullLocker() {
