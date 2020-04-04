@@ -1,10 +1,10 @@
 ## Tasking
 
- - when 存包
-   - given 多个储物柜，第一个储物柜有剩余存储空间 then 包在第一个储物柜存储成功,并出票据;
-   - given 第一个储物柜没有剩余存储空间，第二个储物柜有剩余存储空间 then 包在第二个储物柜存储成功,并出票据;
-   - given 所有储物柜都没有剩余存储空间 then 包存储失败;
- - when 取包
-   - given 有效的票据，其对应的包存储在第一个储物柜 then 在第一个储物柜取包成功;
-   - given 有效的票据，其对应的包存储在第二个储物柜 then 在第二个储物柜取包成功;
-   - given 无效的票据 then 取包失败;
+ - when 使用Robot存包
+   - given 两个储物柜，第一个储物柜有剩余存储空间 when 使用Robot存包 then 在第一个储物柜存储成功,并出票据;
+   - given 两个储物柜，第一个储物柜没有剩余存储空间，第二个储物柜有剩余存储空间 when 使用Robot存包 then 在第二个储物柜存储成功,并出票据;
+   - given 两个储物柜都没有剩余存储空间 when 使用Robot存包 then 存储失败;
+ - when 使用Robot取包
+   - given 提供有效的票据，其对应的包存储在第一个储物柜 when 使用Robot存包 then 在第一个储物柜取包成功;
+   - given 提供有效的票据，其对应的包存储在第二个储物柜 when 使用Robot存包 then 在第二个储物柜取包成功;
+   - given 提供无效的票据 when 使用Robot存包 then 取包失败;

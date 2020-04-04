@@ -2,7 +2,6 @@ package cn.xpbootcamp.gilded_rose;
 
 import cn.xpbootcamp.gilded_rose.exceptions.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.exceptions.LockerFullException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -16,20 +15,17 @@ public class PrimaryLockerRobotTest {
 
     private PrimaryLockerRobot primaryLockerRobot;
 
-    @BeforeEach
-    void initRobot() {
-        primaryLockerRobot = new PrimaryLockerRobot();
-    }
-
     @Nested
-    class when_store_bags {
+    class when_store_bags_with_robot {
         @Test
         void should_store_bag_in_the_first_locker_success_and_return_ticket_given_first_locker_has_room() {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(new Locker(2));
             lockers.add(new Locker(2));
+            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+
             Bag bag = new Bag();
-            Ticket ticket = primaryLockerRobot.store(lockers, bag);
+            Ticket ticket = primaryLockerRobot.store(bag);
 
             assertThat(ticket).isNotNull();
             assertThat(lockers.get(0).takeOut(ticket)).isEqualTo(bag);
@@ -40,8 +36,10 @@ public class PrimaryLockerRobotTest {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(getFullLocker());
             lockers.add(new Locker(2));
+            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+
             Bag bag = new Bag();
-            Ticket ticket = primaryLockerRobot.store(lockers, bag);
+            Ticket ticket = primaryLockerRobot.store(bag);
 
             assertThat(ticket).isNotNull();
             assertThat(lockers.get(1).takeOut(ticket)).isEqualTo(bag);
@@ -52,26 +50,27 @@ public class PrimaryLockerRobotTest {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(getFullLocker());
             lockers.add(getFullLocker());
+            primaryLockerRobot = new PrimaryLockerRobot(lockers);
 
-            assertThatThrownBy(() -> primaryLockerRobot.store(lockers, new Bag()))
+            assertThatThrownBy(() -> primaryLockerRobot.store(new Bag()))
                     .isInstanceOf(LockerFullException.class);
         }
     }
 
     @Nested
-    class when_take_out_bag {
+    class when_take_out_bag_from_robot {
 
         @Test
         void should_take_out_the_bag_from_the_first_locker_given_a_valid_ticket_from_the_first_locker() {
             Bag bagIn = new Bag();
             final Locker locker = new Locker(2);
             final Ticket ticket = locker.store(bagIn);
-
             List<Locker> lockers = new ArrayList<>();
             lockers.add(locker);
             lockers.add(new Locker(1));
+            primaryLockerRobot = new PrimaryLockerRobot(lockers);
 
-            Bag bagOut = primaryLockerRobot.takeOut(lockers, ticket);
+            Bag bagOut = primaryLockerRobot.takeOut(ticket);
             assertThat(bagOut).isEqualTo(bagIn);
         }
 
@@ -80,12 +79,12 @@ public class PrimaryLockerRobotTest {
             Bag bagIn = new Bag();
             final Locker locker = new Locker(2);
             final Ticket ticket = locker.store(bagIn);
-
             List<Locker> lockers = new ArrayList<>();
             lockers.add(new Locker(1));
             lockers.add(locker);
+            primaryLockerRobot = new PrimaryLockerRobot(lockers);
 
-            Bag bagOut = primaryLockerRobot.takeOut(lockers, ticket);
+            Bag bagOut = primaryLockerRobot.takeOut(ticket);
             assertThat(bagOut).isEqualTo(bagIn);
         }
 
@@ -94,9 +93,10 @@ public class PrimaryLockerRobotTest {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(new Locker(1));
             lockers.add(new Locker(2));
+            primaryLockerRobot = new PrimaryLockerRobot(lockers);
 
             final Ticket fakeTicket = new Ticket();
-            assertThatThrownBy(() -> primaryLockerRobot.takeOut(lockers, fakeTicket))
+            assertThatThrownBy(() -> primaryLockerRobot.takeOut(fakeTicket))
                     .isInstanceOf(InvalidTicketException.class);
         }
     }
