@@ -55,33 +55,18 @@ public class SmartLockerRobotTest {
             assertThat(bagOut).isEqualTo(bagIn);
         }
 
-//        @Test
-//        void should_store_bag_in_the_first_locker_success_and_return_ticket_given_first_locker_has_room() {
-//            List<Locker> lockers = new ArrayList<>();
-//            lockers.add(new Locker(2));
-//            lockers.add(new Locker(2));
-//            primaryLockerRobot = new PrimaryLockerRobot(lockers);
-//
-//            Bag bag = new Bag();
-//            Ticket ticket = primaryLockerRobot.store(bag);
-//
-//            assertThat(ticket).isNotNull();
-//            assertThat(lockers.get(0).takeOut(ticket)).isEqualTo(bag);
-//        }
-//
-//        @Test
-//        void should_store_bag_in_the_second_locker_success_and_return_ticket_given_only_the_first_locker_is_full() {
-//            List<Locker> lockers = new ArrayList<>();
-//            lockers.add(getFullLocker());
-//            lockers.add(new Locker(2));
-//            primaryLockerRobot = new PrimaryLockerRobot(lockers);
-//
-//            Bag bag = new Bag();
-//            Ticket ticket = primaryLockerRobot.store(bag);
-//
-//            assertThat(ticket).isNotNull();
-//            assertThat(lockers.get(1).takeOut(ticket)).isEqualTo(bag);
-//        }
+        @Test
+        void should_successfully_store_the_bag_when_store_bag_with_robot_given_the_two_lockers_both_have_5_empty_spaces() {
+            List<Locker> lockers = new ArrayList<>();
+            lockers.add(getLockerWithEmptySpace(5));
+            lockers.add(getLockerWithEmptySpace(5));
+            smartLockerRobot = new SmartLockerRobot(lockers);
+
+            final Bag bagIn = new Bag();
+            final Ticket ticket = smartLockerRobot.store(bagIn);
+            Bag bagOut = smartLockerRobot.takeOut(ticket);
+            assertThat(bagOut).isEqualTo(bagIn);
+        }
 
         @Test
         void should_store_bag_fail_given_all_the_lockers_are_full() {
