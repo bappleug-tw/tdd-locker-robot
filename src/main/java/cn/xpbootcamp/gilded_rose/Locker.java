@@ -34,6 +34,6 @@ public class Locker {
     }
 
     public int getFreeCapacity() {
-        return 5;
+        return capacity - storedBags.size();
     }
 }
