@@ -41,6 +41,19 @@ public class SmartLockerRobotTest {
             assertThat(bagOut).isEqualTo(bagIn);
         }
 
+        @Test
+        void should_successfully_store_the_bag_in_the_2nd_locker_when_store_bag_with_robot_given_the_two_lockers_and_1st_one_has_4_empty_spaces_while_2nd_one_has_5() {
+            List<Locker> lockers = new ArrayList<>();
+            final Locker secondLocker = getLockerWithEmptySpace(5);
+            lockers.add(getLockerWithEmptySpace(4));
+            lockers.add(secondLocker);
+            smartLockerRobot = new SmartLockerRobot(lockers);
+
+            final Bag bagIn = new Bag();
+            final Ticket ticket = smartLockerRobot.store(bagIn);
+            final Bag bagOut = secondLocker.takeOut(ticket);
+            assertThat(bagOut).isEqualTo(bagIn);
+        }
 
 //        @Test
 //        void should_store_bag_in_the_first_locker_success_and_return_ticket_given_first_locker_has_room() {
