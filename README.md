@@ -9,7 +9,7 @@
 
 
 # TDD「Primary Locker Robot」
-## Locker Robot业务系统迭
+## Locker Robot业务系统迭 I
 ###业务需求
  - 作为一个初级储物柜机器人，我能够按储物柜的顺序来存包，也能取包
 
@@ -19,3 +19,14 @@
  - 小步提交
 
 PS：继续在你使用上一个需求的代码库，上做提交，需要创建新的分支，分支命名为：PrimaryLockerRobot
+
+
+# Locker Robot业务系统迭 II
+### 业务需求
+ - 作为一个智能储物柜机器人，我能够按储物柜的空格数量来存包，每次存放在**剩余空格数量最多**的储物柜，也能取包
+### 作业要求
+ - 要有面向问题域的Tasking，将task结果存放在task目录中，文件命名为task-smart-locker-robot.md
+ - 采用TDD的方式编码
+ - 小步提交
+ 
+PS：继续在你使用上一个需求的代码库，上做提交，需要创建新的分支，分支命名为：SmartLockerRobot
