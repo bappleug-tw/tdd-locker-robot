@@ -48,6 +48,15 @@ public class LockerTest {
             int freeCapacity = locker.getFreeCapacity();
             assertThat(freeCapacity).isEqualTo(4);
         }
+
+        @Test
+        void should_return_0_when_query_free_capacity_given_an_locker_with_capacity_2_stored_with_two_bags() {
+            Locker locker = new Locker(2);
+            locker.store(new Bag());
+            locker.store(new Bag());
+            int freeCapacity = locker.getFreeCapacity();
+            assertThat(freeCapacity).isEqualTo(0);
+        }
     }
 
     @Nested

@@ -16,5 +16,5 @@
  - when 查询Locker的剩余空间
     - given 一个空间为5的空储物柜 when 查询其剩余空间 then 返回5
     - given 一个空间为5的空储物柜，存入1个包裹 when 查询其剩余空间 then 返回4
-    - given 一个空间为5的空储物柜，存入5个包裹 when 查询其剩余空间 then 返回0
+    - given 一个空间为2的空储物柜，存入2个包裹 when 查询其剩余空间 then 返回0
     - given 一个空间为5的空储物柜，存入1个包裹，再取出1个包裹 when 查询其剩余空间 then 返回5
