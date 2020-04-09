@@ -17,6 +17,17 @@ public class SmartLockerRobotTest {
 
     @Nested
     class when_store_bags_with_robot {
+        @Test
+        void should_success_and_return_ticket_when_store_bag_with_robot_given_the_locker_is_empty() {
+            List<Locker> lockers = new ArrayList<>();
+            lockers.add(new Locker(2));
+            smartLockerRobot = new SmartLockerRobot(lockers);
+
+            final Ticket ticket = smartLockerRobot.store(new Bag());
+            assertThat(ticket).isNotNull();
+        }
+
+        
 //        @Test
 //        void should_store_bag_in_the_first_locker_success_and_return_ticket_given_first_locker_has_room() {
 //            List<Locker> lockers = new ArrayList<>();
