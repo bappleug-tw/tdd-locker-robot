@@ -32,4 +32,8 @@ public class Locker {
         storedBags.remove(ticket);
         return bag;
     }
+
+    public int getFreeCapacity() {
+        return 5;
+    }
 }

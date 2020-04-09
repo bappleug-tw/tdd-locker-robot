@@ -33,6 +33,13 @@ public class LockerTest {
             assertThatThrownBy(() -> locker.store(bag2))
                     .isInstanceOf(LockerFullException.class);
         }
+
+        @Test
+        void should_return_5_when_query_free_capacity_given_an_empty_locker_with_capacity_5() {
+            Locker locker = new Locker(5);
+            int freeCapacity = locker.getFreeCapacity();
+            assertThat(freeCapacity).isEqualTo(5);
+        }
     }
 
     @Nested
