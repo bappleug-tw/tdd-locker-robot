@@ -57,6 +57,15 @@ public class LockerTest {
             int freeCapacity = locker.getFreeCapacity();
             assertThat(freeCapacity).isEqualTo(0);
         }
+
+        @Test
+        void should_return_5_when_query_free_capacity_given_an_locker_with_capacity_5_stored_with_one_bag_then_take_the_bag_out() {
+            Locker locker = new Locker(5);
+            Ticket ticket = locker.store(new Bag());
+            locker.takeOut(ticket);
+            int freeCapacity = locker.getFreeCapacity();
+            assertThat(freeCapacity).isEqualTo(5);
+        }
     }
 
     @Nested
