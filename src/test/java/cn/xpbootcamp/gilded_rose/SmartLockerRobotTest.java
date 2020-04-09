@@ -11,48 +11,48 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-public class PrimaryLockerRobotTest {
+public class SmartLockerRobotTest {
 
-    private PrimaryLockerRobot primaryLockerRobot;
+    private SmartLockerRobot smartLockerRobot;
 
     @Nested
     class when_store_bags_with_robot {
-        @Test
-        void should_store_bag_in_the_first_locker_success_and_return_ticket_given_first_locker_has_room() {
-            List<Locker> lockers = new ArrayList<>();
-            lockers.add(new Locker(2));
-            lockers.add(new Locker(2));
-            primaryLockerRobot = new PrimaryLockerRobot(lockers);
-
-            Bag bag = new Bag();
-            Ticket ticket = primaryLockerRobot.store(bag);
-
-            assertThat(ticket).isNotNull();
-            assertThat(lockers.get(0).takeOut(ticket)).isEqualTo(bag);
-        }
-
-        @Test
-        void should_store_bag_in_the_second_locker_success_and_return_ticket_given_only_the_first_locker_is_full() {
-            List<Locker> lockers = new ArrayList<>();
-            lockers.add(getFullLocker());
-            lockers.add(new Locker(2));
-            primaryLockerRobot = new PrimaryLockerRobot(lockers);
-
-            Bag bag = new Bag();
-            Ticket ticket = primaryLockerRobot.store(bag);
-
-            assertThat(ticket).isNotNull();
-            assertThat(lockers.get(1).takeOut(ticket)).isEqualTo(bag);
-        }
+//        @Test
+//        void should_store_bag_in_the_first_locker_success_and_return_ticket_given_first_locker_has_room() {
+//            List<Locker> lockers = new ArrayList<>();
+//            lockers.add(new Locker(2));
+//            lockers.add(new Locker(2));
+//            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+//
+//            Bag bag = new Bag();
+//            Ticket ticket = primaryLockerRobot.store(bag);
+//
+//            assertThat(ticket).isNotNull();
+//            assertThat(lockers.get(0).takeOut(ticket)).isEqualTo(bag);
+//        }
+//
+//        @Test
+//        void should_store_bag_in_the_second_locker_success_and_return_ticket_given_only_the_first_locker_is_full() {
+//            List<Locker> lockers = new ArrayList<>();
+//            lockers.add(getFullLocker());
+//            lockers.add(new Locker(2));
+//            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+//
+//            Bag bag = new Bag();
+//            Ticket ticket = primaryLockerRobot.store(bag);
+//
+//            assertThat(ticket).isNotNull();
+//            assertThat(lockers.get(1).takeOut(ticket)).isEqualTo(bag);
+//        }
 
         @Test
         void should_store_bag_fail_given_all_the_lockers_are_full() {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(getFullLocker());
             lockers.add(getFullLocker());
-            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+            smartLockerRobot = new SmartLockerRobot(lockers);
 
-            assertThatThrownBy(() -> primaryLockerRobot.store(new Bag()))
+            assertThatThrownBy(() -> smartLockerRobot.store(new Bag()))
                     .isInstanceOf(LockerFullException.class);
         }
     }
@@ -68,9 +68,9 @@ public class PrimaryLockerRobotTest {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(locker);
             lockers.add(new Locker(1));
-            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+            smartLockerRobot = new SmartLockerRobot(lockers);
 
-            Bag bagOut = primaryLockerRobot.takeOut(ticket);
+            Bag bagOut = smartLockerRobot.takeOut(ticket);
             assertThat(bagOut).isEqualTo(bagIn);
         }
 
@@ -82,9 +82,9 @@ public class PrimaryLockerRobotTest {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(new Locker(1));
             lockers.add(locker);
-            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+            smartLockerRobot = new SmartLockerRobot(lockers);
 
-            Bag bagOut = primaryLockerRobot.takeOut(ticket);
+            Bag bagOut = smartLockerRobot.takeOut(ticket);
             assertThat(bagOut).isEqualTo(bagIn);
         }
 
@@ -93,10 +93,10 @@ public class PrimaryLockerRobotTest {
             List<Locker> lockers = new ArrayList<>();
             lockers.add(new Locker(1));
             lockers.add(new Locker(2));
-            primaryLockerRobot = new PrimaryLockerRobot(lockers);
+            smartLockerRobot = new SmartLockerRobot(lockers);
 
             final Ticket fakeTicket = new Ticket();
-            assertThatThrownBy(() -> primaryLockerRobot.takeOut(fakeTicket))
+            assertThatThrownBy(() -> smartLockerRobot.takeOut(fakeTicket))
                     .isInstanceOf(InvalidTicketException.class);
         }
     }
