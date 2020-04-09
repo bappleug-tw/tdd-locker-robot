@@ -27,7 +27,21 @@ public class SmartLockerRobotTest {
             assertThat(ticket).isNotNull();
         }
 
-        
+        @Test
+        void should_successfully_store_the_bag_in_the_1st_locker_when_store_bag_with_robot_given_the_two_lockers_and_1st_one_has_5_empty_spaces_while_2nd_one_has_4() {
+            List<Locker> lockers = new ArrayList<>();
+            final Locker firstLocker = getLockerWithEmptySpace(5);
+            lockers.add(firstLocker);
+            lockers.add(getLockerWithEmptySpace(4));
+            smartLockerRobot = new SmartLockerRobot(lockers);
+
+            final Bag bagIn = new Bag();
+            final Ticket ticket = smartLockerRobot.store(bagIn);
+            final Bag bagOut = firstLocker.takeOut(ticket);
+            assertThat(bagOut).isEqualTo(bagIn);
+        }
+
+
 //        @Test
 //        void should_store_bag_in_the_first_locker_success_and_return_ticket_given_first_locker_has_room() {
 //            List<Locker> lockers = new ArrayList<>();
@@ -114,6 +128,12 @@ public class SmartLockerRobotTest {
 
     private Locker getFullLocker() {
         Locker locker = new Locker(1);
+        locker.store(new Bag());
+        return locker;
+    }
+
+    private Locker getLockerWithEmptySpace(int emptySpace) {
+        Locker locker = new Locker(emptySpace + 1);
         locker.store(new Bag());
         return locker;
     }
