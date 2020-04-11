@@ -18,9 +18,8 @@ public class SmartLockerRobot {
 
     public Bag takeOut(Ticket ticket) {
         for (Locker locker : lockers) {
-            try {
+            if(locker.contains(ticket)) {
                 return locker.takeOut(ticket);
-            } catch (InvalidTicketException ignored) {
             }
         }
         throw new InvalidTicketException();
