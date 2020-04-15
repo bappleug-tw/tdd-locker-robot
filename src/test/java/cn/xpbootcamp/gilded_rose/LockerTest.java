@@ -2,6 +2,7 @@ package cn.xpbootcamp.gilded_rose;
 
 import cn.xpbootcamp.gilded_rose.exceptions.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.exceptions.LockerFullException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -34,6 +35,7 @@ public class LockerTest {
                     .isInstanceOf(LockerFullException.class);
         }
 
+        @Disabled
         @Test
         void should_return_5_when_query_free_capacity_given_an_empty_locker_with_capacity_5() {
             Locker locker = new Locker(5);
@@ -41,6 +43,7 @@ public class LockerTest {
             assertThat(freeCapacity).isEqualTo(5);
         }
 
+        @Disabled
         @Test
         void should_return_4_when_query_free_capacity_given_an_locker_with_capacity_5_stored_with_one_bag() {
             Locker locker = new Locker(5);
@@ -49,6 +52,7 @@ public class LockerTest {
             assertThat(freeCapacity).isEqualTo(4);
         }
 
+        @Disabled
         @Test
         void should_return_0_when_query_free_capacity_given_an_locker_with_capacity_2_stored_with_two_bags() {
             Locker locker = new Locker(2);
@@ -58,6 +62,7 @@ public class LockerTest {
             assertThat(freeCapacity).isEqualTo(0);
         }
 
+        @Disabled
         @Test
         void should_return_5_when_query_free_capacity_given_an_locker_with_capacity_5_stored_with_one_bag_then_take_the_bag_out() {
             Locker locker = new Locker(5);
