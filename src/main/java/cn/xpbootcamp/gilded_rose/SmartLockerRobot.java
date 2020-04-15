@@ -5,23 +5,15 @@ import cn.xpbootcamp.gilded_rose.exceptions.InvalidTicketException;
 import java.util.Comparator;
 import java.util.List;
 
-public class SmartLockerRobot {
-    private List<Locker> lockers;
+public class SmartLockerRobot extends LockerRobot {
 
     public SmartLockerRobot(List<Locker> lockers) {
-        this.lockers = lockers;
+        super(lockers);
     }
 
+    @Override
     public Ticket store(Bag bag) {
         return lockers.stream().max(Comparator.comparingInt(Locker::getFreeCapacity)).get().store(bag);
     }
 
-    public Bag takeOut(Ticket ticket) {
-        for (Locker locker : lockers) {
-            if(locker.contains(ticket)) {
-                return locker.takeOut(ticket);
-            }
-        }
-        throw new InvalidTicketException();
-    }
 }
