@@ -11,6 +11,6 @@ public class SuperLockerRobot extends LockerRobot{
 
     @Override
     public Ticket store(Bag bag) {
-        return lockers.stream().max(Comparator.comparingInt(Locker::getFreeCapacity)).get().store(bag);
+        return lockers.stream().max(Comparator.comparingDouble(Locker::getEmptyRate)).get().store(bag);
     }
 }

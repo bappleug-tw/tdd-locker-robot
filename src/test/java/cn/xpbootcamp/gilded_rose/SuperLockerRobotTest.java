@@ -39,21 +39,21 @@ public class SuperLockerRobotTest {
             final Bag bagOut = firstLocker.takeOut(ticket);
             assertThat(bagOut).isEqualTo(bagIn);
         }
-//
-//        @Test
-//        void should_successfully_store_the_bag_in_the_2nd_locker_when_store_bag_with_robot_given_two_lockers_and_1st_has_4_empty_spaces_while_2nd_has_5() {
-//            List<Locker> lockers = new ArrayList<>();
-//            final Locker secondLocker = getLockerWithEmptySpace(5);
-//            lockers.add(getLockerWithEmptySpace(4));
-//            lockers.add(secondLocker);
-//            superLockerRobot = new SuperLockerRobot(lockers);
-//
-//            final Bag bagIn = new Bag();
-//            final Ticket ticket = superLockerRobot.store(bagIn);
-//            final Bag bagOut = secondLocker.takeOut(ticket);
-//            assertThat(bagOut).isEqualTo(bagIn);
-//        }
-//
+
+        @Test
+        void should_successfully_store_the_bag_in_the_2st_locker_when_store_bag_given_two_lockers_and_1st_has_one_fourth_empty_rate_while_2nd_has_two_thirds() {
+            List<Locker> lockers = new ArrayList<>();
+            lockers.add(getLocker(4, 1));
+            final Locker secondLocker = getLocker(3, 1);
+            lockers.add(secondLocker);
+            superLockerRobot = new SuperLockerRobot(lockers);
+
+            final Bag bagIn = new Bag();
+            final Ticket ticket = superLockerRobot.store(bagIn);
+            final Bag bagOut = secondLocker.takeOut(ticket);
+            assertThat(bagOut).isEqualTo(bagIn);
+        }
+
 //        @Test
 //        void should_successfully_store_the_bag_in_the_1st_locker_when_store_bag_with_robot_given_the_two_lockers_both_have_5_empty_spaces() {
 //            List<Locker> lockers = new ArrayList<>();

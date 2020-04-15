@@ -37,6 +37,10 @@ public class Locker {
         return capacity - storedBags.size();
     }
 
+    public double getEmptyRate() {
+        return getFreeCapacity() / (double)capacity;
+    }
+
     public boolean contains(Ticket ticket) {
         return storedBags.containsKey(ticket);
     }
