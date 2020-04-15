@@ -26,19 +26,19 @@ public class SuperLockerRobotTest {
             assertThat(ticket).isNotNull();
         }
 
-//        @Test
-//        void should_successfully_store_the_bag_in_the_1st_locker_when_store_bag_with_robot_given_two_lockers_and_1st_has_5_empty_spaces_while_2nd_has_4() {
-//            List<Locker> lockers = new ArrayList<>();
-//            final Locker firstLocker = getLockerWithEmptySpace(5);
-//            lockers.add(firstLocker);
-//            lockers.add(getLockerWithEmptySpace(4));
-//            superLockerRobot = new SuperLockerRobot(lockers);
-//
-//            final Bag bagIn = new Bag();
-//            final Ticket ticket = superLockerRobot.store(bagIn);
-//            final Bag bagOut = firstLocker.takeOut(ticket);
-//            assertThat(bagOut).isEqualTo(bagIn);
-//        }
+        @Test
+        void should_successfully_store_the_bag_in_the_1st_locker_when_store_bag_given_two_lockers_and_1st_has_two_thirds_empty_rate_while_2nd_has_one_third() {
+            List<Locker> lockers = new ArrayList<>();
+            final Locker firstLocker = getLocker(3, 2);
+            lockers.add(firstLocker);
+            lockers.add(getLocker(3, 1));
+            superLockerRobot = new SuperLockerRobot(lockers);
+
+            final Bag bagIn = new Bag();
+            final Ticket ticket = superLockerRobot.store(bagIn);
+            final Bag bagOut = firstLocker.takeOut(ticket);
+            assertThat(bagOut).isEqualTo(bagIn);
+        }
 //
 //        @Test
 //        void should_successfully_store_the_bag_in_the_2nd_locker_when_store_bag_with_robot_given_two_lockers_and_1st_has_4_empty_spaces_while_2nd_has_5() {
@@ -78,6 +78,14 @@ public class SuperLockerRobotTest {
             assertThatThrownBy(() -> superLockerRobot.store(new Bag()))
                     .isInstanceOf(LockerFullException.class);
         }
+    }
+
+    private Locker getLocker(int capacity, int emptySpace) {
+        Locker locker = new Locker(capacity);
+        for (int i = 0; i < capacity - emptySpace; i++) {
+            locker.store(new Bag());
+        }
+        return locker;
     }
 
     @Nested
