@@ -54,19 +54,19 @@ public class SuperLockerRobotTest {
             assertThat(bagOut).isEqualTo(bagIn);
         }
 
-//        @Test
-//        void should_successfully_store_the_bag_in_the_1st_locker_when_store_bag_with_robot_given_the_two_lockers_both_have_5_empty_spaces() {
-//            List<Locker> lockers = new ArrayList<>();
-//            final Locker firstLocker = getLockerWithEmptySpace(5);
-//            lockers.add(firstLocker);
-//            lockers.add(getLockerWithEmptySpace(5));
-//            superLockerRobot = new SuperLockerRobot(lockers);
-//
-//            final Bag bagIn = new Bag();
-//            final Ticket ticket = superLockerRobot.store(bagIn);
-//            final Bag bagOut = firstLocker.takeOut(ticket);
-//            assertThat(bagOut).isEqualTo(bagIn);
-//        }
+        @Test
+        void should_successfully_store_the_bag_in_the_1st_locker_when_store_bag_given_two_lockers_both_have_one_third_empty_rate() {
+            List<Locker> lockers = new ArrayList<>();
+            final Locker firstLocker = getLocker(6, 2);
+            lockers.add(firstLocker);
+            lockers.add(getLocker(3, 1));
+            superLockerRobot = new SuperLockerRobot(lockers);
+
+            final Bag bagIn = new Bag();
+            final Ticket ticket = superLockerRobot.store(bagIn);
+            final Bag bagOut = firstLocker.takeOut(ticket);
+            assertThat(bagOut).isEqualTo(bagIn);
+        }
 
         @Test
         void should_store_bag_fail_given_all_the_lockers_are_full() {
